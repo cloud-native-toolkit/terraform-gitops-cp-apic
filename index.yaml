@@ -1,0 +1,9 @@
+name: gitops-cp-apic
+type: gitops
+description: Module to populate a gitops repo with the resources to provision cp-apic
+tags:
+  - tools
+  - gitops
+versions: []
+softwareProvider: ibm-cp
+id: github.com/cloud-native-toolkit/terraform-gitops-cp-apic

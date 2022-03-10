@@ -18,6 +18,18 @@ versions:
         refs:
           - source: github.com/cloud-native-toolkit/terraform-gitops-namespace.git
             version: '>= 1.0.0'
+      - id: apic-operator
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-gitops-cp-apic-operator.git
+            version: '>= 1.0.0'
+      - id: dep-manager
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-cp4i-dependency-management.git
+            version: ">= 0.0.0"
+      - id: platform-navigator
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-gitops-cp-platform-navigator.git
+            version: ">= 0.0.0"
     variables:
       - name: gitops_config
         moduleRef:
@@ -39,4 +51,16 @@ versions:
         moduleRef:
           id: gitops
           output: sealed_secrets_cert
+      - name: apic_version
+        moduleRef:
+          id: dep-manager
+          output: apic.version
+      - name: license_id
+        moduleRef:
+          id: dep-manager
+          output: apic.license
+      - name: usage
+        moduleRef:
+          id: dep-manager
+          output: apic.license_use
 softwareProvider: ibm-cp

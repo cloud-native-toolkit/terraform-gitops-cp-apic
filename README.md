@@ -22,7 +22,6 @@ This module makes use of the output from other modules:
 - Namespace - github.com/cloud-native-toolkit/terraform-gitops-namespace.git
 - CP4I Dependency Management - github.com/cloud-native-toolkit/terraform-cp4i-dependency-management
 - CP APIC Operator - github.com/cloud-native-toolkit/terraform-gitops-cp-apic-operator.git
-- CP Plaform Navigator - github.com/cloud-native-toolkit/terraform-gitops-cp-platform-navigator.git
 
 ## Example usage
 

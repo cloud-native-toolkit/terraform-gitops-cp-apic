@@ -26,10 +26,6 @@ versions:
         refs:
           - source: github.com/cloud-native-toolkit/terraform-cp4i-dependency-management.git
             version: ">= 0.0.0"
-      - id: platform-navigator
-        refs:
-          - source: github.com/cloud-native-toolkit/terraform-gitops-cp-platform-navigator.git
-            version: ">= 0.0.0"
     variables:
       - name: gitops_config
         moduleRef:

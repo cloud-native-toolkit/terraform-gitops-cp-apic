@@ -92,6 +92,7 @@ variable "usage" {
 variable "profile" {
   type        = string
   description = "apic profile template"
+  default     = "n1xc7.m48" 
 }
 
 variable "apic_version" {

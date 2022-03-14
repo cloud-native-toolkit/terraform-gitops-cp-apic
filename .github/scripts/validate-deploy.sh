@@ -55,7 +55,7 @@ cd ..
 rm -rf .testrepo
 
 # *** APIC instance deployment verification
-INSTANCE_NAME="apic-instance"
+INSTANCE_NAME="apicinstance"
 CR="APIConnectCluster/${INSTANCE_NAME}"
 
 count=0

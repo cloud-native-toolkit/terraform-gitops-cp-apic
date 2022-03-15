@@ -62,7 +62,7 @@ count=0
 until kubectl get "${CR}" -n "${NAMESPACE}" || [[ $count -eq 40 ]]; do
   echo "Waiting for ${CR} in ${NAMESPACE}"
   count=$((count + 1))
-  sleep 15
+  sleep 90
 done
 
 if [[ $count -eq 40 ]]; then

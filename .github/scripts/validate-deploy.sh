@@ -66,9 +66,9 @@ count=0
 #  sleep 90
 #done
 until [[ $(kubectl get APIConnectCluster -n ${NAMESPACE} -o jsonpath='{.items[?(@.metadata.name==$INSTANCE_NAME)].status.phase}' == "Ready") || $count -eq ${TIMEOUT} ]]; do
-  echo "Waiting for APIConnectCluster/${INSTANCE_NAME} to come up in ${NAMESPACE}"
-  count=$((count + 1))
-  sleep 60
+  echo "Waiting for APIConnectCluster/${INSTANCE_NAME} to come up in ${NAMESPACE}"
+  count=$((count + 1))
+  sleep 60
 done
 
 if [[ $count -eq 40 ]]; then

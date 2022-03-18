@@ -9,6 +9,7 @@ BRANCH="main"
 SERVER_NAME="default"
 TYPE="instances"
 LAYER="2-services"
+TIMEOUT=60
 
 COMPONENT_NAME="ibm-cp4i-apic-instance"
 

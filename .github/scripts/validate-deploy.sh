@@ -59,10 +59,15 @@ INSTANCE_NAME="apicinstance"
 CR="APIConnectCluster/${INSTANCE_NAME}"
 
 count=0
-until kubectl get "${CR}" -n "${NAMESPACE}" || [[ $count -eq 40 ]]; do
-  echo "Waiting for ${CR} in ${NAMESPACE}"
-  count=$((count + 1))
-  sleep 90
+#until kubectl get "${CR}" -n "${NAMESPACE}" || [[ $count -eq 40 ]]; do
+#  echo "Waiting for ${CR} in ${NAMESPACE}"
+#  count=$((count + 1))
+#  sleep 90
+#done
+until [[ $(kubectl get APIConnectCluster -n ${NAMESPACE} -o jsonpath='{.items[?(@.metadata.name==$INSTANCE_NAME)].status.phase}' == "Ready") || $count -eq ${TIMEOUT} ]]; do
+  echo "Waiting for APIConnectCluster/${INSTANCE_NAME} to come up in ${NAMESPACE}"
+  count=$((count + 1))
+  sleep 60
 done
 
 if [[ $count -eq 40 ]]; then

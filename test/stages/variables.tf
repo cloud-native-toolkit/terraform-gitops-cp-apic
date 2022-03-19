@@ -32,6 +32,7 @@ variable "cluster_name" {
 variable "cluster_type" {
   type        = string
   description = "The type of cluster that should be created (openshift or kubernetes)"
+  default = "openshift"
 }
 
 variable "cluster_exists" {
@@ -73,5 +74,11 @@ variable "kubeseal_namespace" {
   default = "sealed-secrets"
 }
 
+
+variable "kubeseal_cert" {
+  type    = string
+  description = "The certification/public key used for certification"
+  default = ""
+}
 variable "cp_entitlement_key" {
 }

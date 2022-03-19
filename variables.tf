@@ -79,3 +79,44 @@ variable "server_name" {
   description = "The name of the server"
   default     = "default"
 }
+variable "license_id" {
+  type        = string
+  description = "The license id"
+}
+
+variable "usage" {
+  type        = string
+  description = "The usage as production or nonproduction"
+}
+
+variable "profile" {
+  type        = string
+  description = "apic profile template"
+  default     = "n1xc7.m48" 
+}
+
+variable "apic_version" {
+  type        = string
+  description = "apic version"
+}
+
+variable "storage_class" {
+  type        = string
+  description = "specify block storage class with min 4 IOPs"
+  default     = ""
+}
+
+variable "entitlement_key" {
+  type = string
+  description = "Entitlement key value"
+}
+variable "catalog" {
+  type        = string
+  description = "The catalog source that should be used to deploy the operator"
+  default     = "ibm-operator-catalog"
+}
+variable "catalog_namespace" {
+  type        = string
+  description = "The namespace where the catalog has been deployed"
+  default     = "openshift-marketplace"
+}

@@ -5,13 +5,11 @@ GIT_TOKEN=$(cat git_token)
 
 export KUBECONFIG=$(cat .kubeconfig)
 NAMESPACE=$(cat .namespace)
-BRANCH="main"
-SERVER_NAME="default"
-TYPE="instances"
-LAYER="2-services"
-TIMEOUT=60
-
-COMPONENT_NAME="ibm-cp4i-apic-instance"
+COMPONENT_NAME=$(jq -r '.name // "my-module"' gitops-output.json)
+BRANCH=$(jq -r '.branch // "main"' gitops-output.json)
+SERVER_NAME=$(jq -r '.server_name // "default"' gitops-output.json)
+LAYER=$(jq -r '.layer_dir // "2-services"' gitops-output.json)
+TYPE=$(jq -r '.type // "base"' gitops-output.json)
 
 mkdir -p .testrepo
 
@@ -30,7 +28,7 @@ echo "Printing argocd/${LAYER}/cluster/${SERVER_NAME}/${TYPE}/${NAMESPACE}-${COM
 cat "argocd/${LAYER}/cluster/${SERVER_NAME}/${TYPE}/${NAMESPACE}-${COMPONENT_NAME}.yaml"
 
 if [[ ! -f "payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/values.yaml" ]]; then
-  echo "Application values not found - payload/2-services/namespace/${NAMESPACE}/${COMPONENT_NAME}/values.yaml"
+  echo "Application values not found - payload/${LAYER}/namespace/${NAMESPACE}/${COMPONENT_NAME}/values.yaml"
   exit 1
 fi
 
@@ -49,30 +47,29 @@ if [[ $count -eq 20 ]]; then
   exit 1
 else
   echo "Found namespace: ${NAMESPACE}. Sleeping for 30 seconds to wait for everything to settle down"
-  sleep 30
+  sleep 1
 fi
 
-cd ..
-rm -rf .testrepo
-
-# *** APIC instance deployment verification
-INSTANCE_NAME="apicinstance"
-CR="APIConnectCluster/${INSTANCE_NAME}"
-
+DEPLOYMENT="${COMPONENT_NAME}-${BRANCH}"
+APIC_CRD="apiconnectclusters.apiconnect.ibm.com"
+TIMEOUT=60
 count=0
-#until kubectl get "${CR}" -n "${NAMESPACE}" || [[ $count -eq 40 ]]; do
-#  echo "Waiting for ${CR} in ${NAMESPACE}"
-#  count=$((count + 1))
-#  sleep 90
-#done
-until [[ $(kubectl get APIConnectCluster -n ${NAMESPACE} -o jsonpath='{.items[?(@.metadata.name==$INSTANCE_NAME)].status.phase}' == "Ready") || $count -eq ${TIMEOUT} ]]; do
-  echo "Waiting for APIConnectCluster/${INSTANCE_NAME} to come up in ${NAMESPACE}"
+DESIRED_STATE="Ready"
+
+until [[ $(kubectl get ${APIC_CRD}  -n  ${NAMESPACE} -o jsonpath="{range .items[*]}{.status.phase}{end}") == ${DESIRED_STATE} ||  $count -eq ${TIMEOUT} ]]; do
+  echo "Waiting for ${APIC_CRD} to come up in ${NAMESPACE}"
   count=$((count + 1))
   sleep 60
 done
 
-if [[ $count -eq 40 ]]; then
-  echo "Timed out waiting for ${CR} in ${NAMESPACE}"
-  kubectl get APIConnectCluster -n "${NAMESPACE}"
+if [[ $count -eq ${TIMEOUT} ]]; then
+  echo "Timed out waiting for ${APIC_CRD} in ${NAMESPACE}"
+  kubectl get all -n "${NAMESPACE}"
   exit 1
+else
+  echo "Found an instances of ${APIC_CRD} in a Running state in ${NAMESPACE}"
 fi
+#kubectl rollout status "deployment/${DEPLOYMENT}" -n "${NAMESPACE}" || exit 1
+
+cd ..
+rm -rf .testrepo

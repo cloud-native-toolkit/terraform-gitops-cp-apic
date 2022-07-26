@@ -11,5 +11,5 @@ module "gitops_module" {
   apic_version = module.cp4i-dependencies.apic.version
   license_id = module.cp4i-dependencies.apic.license
   usage = module.cp4i-dependencies.apic.license_use
-  storage_class="ibmc-vpc-block-10iops-tier"
+  storage_class="portworx-db2-rwo-sc"
 }

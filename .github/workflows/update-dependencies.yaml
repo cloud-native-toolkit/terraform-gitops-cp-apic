@@ -16,5 +16,5 @@ jobs:
     repo: ${{ github.event.client_payload.repo }}
     ref: ${{ github.event.client_payload.ref }}
     sha: ${{ github.event.client_payload.sha }}
- secrets:
+   secrets:
     TOKEN: ${{ secrets.TOKEN }}

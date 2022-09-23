@@ -29,7 +29,5 @@ jobs:
   verifyAll:
     needs: [verify,verifyMetadata]
     runs-on: ubuntu-latest
-
-
-  steps:
-    - run: echo "Success" 
+    steps:
+      - run: echo "Success" 

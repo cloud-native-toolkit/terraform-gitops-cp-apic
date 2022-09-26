@@ -1,6 +1,3 @@
-# terraform {
-# }
-
 terraform {
   required_providers {
     gitops = {

@@ -1,6 +1,5 @@
 locals {
   name          = "ibm-cp4i-apic-instance"
-  bin_dir       = module.setup_clis.bin_dir
   chart_dir     = "${path.module}/charts/${local.name}"
   yaml_dir      = "${path.cwd}/.tmp/${local.name}/chart/${local.name}"
   service_url   = "http://${local.name}.${var.namespace}"
@@ -23,10 +22,6 @@ locals {
   application_branch = "main"
   namespace = var.namespace
   layer_config = var.gitops_config[local.layer]
-}
-
-module setup_clis {
-  source = "github.com/cloud-native-toolkit/terraform-util-clis.git"
 }
 
 resource gitops_pull_secret cp_icr_io {
@@ -56,7 +51,7 @@ resource null_resource create_instance_yaml {
   }
 }
 
-resource gitops_module module {
+resource gitops_module setup_gitops {
   depends_on = [null_resource.create_instance_yaml]
 
 

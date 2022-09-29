@@ -20,6 +20,10 @@ versions:
         refs:
           - source: github.com/cloud-native-toolkit/terraform-gitops-namespace.git
             version: '>= 1.0.0'
+      - id: platform-navigator
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-gitops-cp-platform-navigator.git
+            version: '>= 1.0.0'
       - id: apic-operator
         refs:
           - source: github.com/cloud-native-toolkit/terraform-gitops-cp-apic-operator.git

@@ -139,7 +139,7 @@ versions:
       - name: profile
         type: string
         description: apic profile template
-        default: '"n1xc7.m48" '
+        default: "n1xc7.m48"
       - name: apic_version
         type: string
         description: apic version

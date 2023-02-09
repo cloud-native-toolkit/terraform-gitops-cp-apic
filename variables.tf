@@ -103,18 +103,19 @@ variable "apic_version" {
 variable "storage_class" {
   type        = string
   description = "specify block storage class with min 4 IOPs"
-  default     = ""
 }
 
 variable "entitlement_key" {
   type = string
   description = "Entitlement key value"
 }
+
 variable "catalog" {
   type        = string
   description = "The catalog source that should be used to deploy the operator"
   default     = "ibm-operator-catalog"
 }
+
 variable "catalog_namespace" {
   type        = string
   description = "The namespace where the catalog has been deployed"

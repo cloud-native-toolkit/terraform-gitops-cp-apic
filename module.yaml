@@ -32,6 +32,10 @@ versions:
         refs:
           - source: github.com/cloud-native-toolkit/terraform-cp4i-dependency-management.git
             version: ">= 0.0.0"
+      - id: storage
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-util-storage-class-manager.git
+            version: ">= 1.0.0"
     variables:
       - name: gitops_config
         moduleRef:
@@ -65,4 +69,8 @@ versions:
         moduleRef:
           id: dep-manager
           output: apic.license_use
+      - name: storage_class
+        moduleRef:
+          id: storage
+          output: block_storage_class
 softwareProvider: ibm-cp
